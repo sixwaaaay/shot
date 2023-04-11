@@ -10,23 +10,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-  
-<template>
-  <q-layout view="lHh Lpr lFf">
-    <q-footer elevated class="bg-white text-grey-8 q-py-xs">
-      <q-tabs switch-indicator>
-        <q-route-tab to="/home" replace label="首页" />
-        <q-route-tab to="/friends" replace label="朋友" />
-        <q-route-tab icon="video_call" to="/edit/video" replace />
-        <q-route-tab to="/inbox" replace label="消息" />
-        <q-route-tab to="/profile" replace label="我的" />
-      </q-tabs>
-    </q-footer>
 
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+<template>
+  <q-page padding>
+    <!-- content -->
+  </q-page>
 </template>
 
 <script setup lang="ts">
