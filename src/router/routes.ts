@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-import { RouteRecordRaw } from 'vue-router';
+import {RouteRecordRaw} from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -52,6 +52,20 @@ const routes: RouteRecordRaw[] = [
       {
         path: ':catchAll(.*)*',
         redirect: '/sign/in',
+      }
+    ]
+  },
+  {
+    path: '/edit',
+    component: () => import('layouts/Edit.vue'),
+    children: [
+      {
+        path: 'video',
+        component: () => import('pages/VideoUploader.vue'),
+      },
+      {
+        path: 'profile',
+        component: () => import('pages/ProfileEdit.vue'),
       }
     ]
   },
