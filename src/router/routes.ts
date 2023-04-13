@@ -35,6 +35,26 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/Profile.vue'),
       }],
   },
+  {
+    path: '/sign',
+    component: () => import('layouts/Sign.vue'),
+    children: [
+      {
+        path: 'in',
+        component: () => import('pages/SignIn.vue'),
+      },
+      {
+        path: 'up',
+        component: () => import('pages/SignUp.vue'),
+      }
+      // catch all redirect to /sign/in
+      ,
+      {
+        path: ':catchAll(.*)*',
+        redirect: '/sign/in',
+      }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
