@@ -33,10 +33,14 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/profile',
         component: () => import('pages/Profile.vue'),
+        meta: {
+          requiresAuth: true,
+        }
       }],
   },
   {
     path: '/sign',
+    name: 'Sign',
     component: () => import('layouts/Sign.vue'),
     children: [
       {
