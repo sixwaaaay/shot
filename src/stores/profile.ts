@@ -10,7 +10,7 @@ export const useProfileStore = defineStore('profile', {
 
   getters: {
     getBearerToken: (state) => {
-      return `Bearer ${state.token}`;
+      return state.token ? 'Bearer ' + state.token : '';
     }
   },
 
