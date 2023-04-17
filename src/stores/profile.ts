@@ -20,6 +20,12 @@ export const useProfileStore = defineStore('profile', {
     },
     setToken(token: string) {
       this.token = token;
+      localStorage.setItem("profile/isLoggedIn", "true");
+    },
+    logout() {
+      this.user = {} as User;
+      this.token = '';
+      localStorage.setItem("profile/isLoggedIn", "false");
     }
   }
 });
