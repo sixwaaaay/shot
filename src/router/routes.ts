@@ -60,6 +60,16 @@ const routes: RouteRecordRaw[] = [
     ]
   },
   {
+    path: '/plain',
+    component: () => import('layouts/Plain.vue'),
+    children: [
+      {
+        path: 'chat',
+        component: () => import('pages/MessageChat.vue'),
+      }
+    ]
+  },
+  {
     path: '/edit',
     component: () => import('layouts/Edit.vue'),
     children: [
