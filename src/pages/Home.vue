@@ -87,4 +87,3 @@ const search = ref("")
 const searchVideos = async () => {
 }
 </script>
-
