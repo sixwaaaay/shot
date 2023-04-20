@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-import {User, Video} from "src/api";
+import {User, Video,Comment} from "src/api";
 
 
 export class useWrapStore {
@@ -48,6 +48,16 @@ export class useWrapStore {
         let avatarUrl = video?.author?.avatar_url;
         if (avatarUrl !== undefined && avatarUrl !== null && !avatarUrl.startsWith("http")) {
           video.author.avatar_url = this.image_prefix + avatarUrl;
+        }
+      }
+    });
+  }
+  wrapCommentPrefix(comments: Comment[]) {
+    comments.forEach((comment) => {
+      if (comment?.user) {
+        let avatarUrl = comment?.user?.avatar_url;
+        if (avatarUrl !== undefined && avatarUrl !== null && !avatarUrl.startsWith("http")) {
+          comment.user.avatar_url = this.image_prefix + avatarUrl;
         }
       }
     });
