@@ -66,12 +66,14 @@ import {api} from "boot/axios";
 import {ref} from 'vue';
 import {useQuasar} from "quasar";
 import {useRouter} from "vue-router";
+import {Configuration, DefaultApi} from "src/api";
+import {useProfileStore} from "stores/profile";
 
 const title = ref('')
 const description = ref('')
 const category = ref('')
 const tags = ref([] as string[])
-const coverImage = ref(new Blob())
+const coverImage = ref({} as Blob)
 const video = ref({} as Blob)
 const tagInput = ref('')
 const addTag = () => {
@@ -87,20 +89,24 @@ const removeTag = (index: number) => {
   tags.value.splice(index, 1)
 }
 const router = useRouter()
-
+const profileStore = useProfileStore()
 const onSubmit = async (event: { preventDefault: () => void; target: HTMLFormElement | undefined; }) => {
   event.preventDefault()
   const formData = new FormData(event.target)
+  console.log(formData)
+  const service = new DefaultApi(new Configuration({basePath: api.defaults.baseURL}))
   try {
-    let config = {headers: {'Content-Type': 'multipart/form-data'}};
-    const resp = await api.patch(
-      'http://localhost:8080/video',
-      formData,
-      config
-    )
-    const data = resp.data
+    let response = await service.uploadVideo(
+      profileStore.getBearerToken,
+      title.value,
+      description.value,
+      video.value,
+      coverImage.value,
+    );
+    console.log(response)
     await router.replace('/home')
   } catch (error) {
+    console.log(error)
     const $q = useQuasar()
     $q.notify({
       message: '上传失败',

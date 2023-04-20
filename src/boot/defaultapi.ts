@@ -11,11 +11,10 @@
  * limitations under the License.
  */
 
-export interface Todo {
-  id: number;
-  content: string;
-}
 
-export interface Meta {
-  totalCount: number;
-}
+import {Configuration, DefaultApi} from "src/api";
+import {api} from "boot/axios";
+
+const client = new DefaultApi(new Configuration({basePath: api.defaults.baseURL}))
+
+export  {client}

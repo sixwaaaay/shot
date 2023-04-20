@@ -27,10 +27,10 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 export interface Comment {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof Comment
      */
-    id?: number;
+    id?: string;
     /**
      *
      * @type {string}
@@ -39,10 +39,10 @@ export interface Comment {
     content?: string;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof Comment
      */
-    create_at?: number;
+    create_at?: string;
     /**
      *
      * @type {User}
@@ -71,10 +71,10 @@ export interface CommentActionReply {
 export interface CommentActionReq {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof CommentActionReq
      */
-    video_id: number;
+    video_id: string;
     /**
      *
      * @type {number}
@@ -89,10 +89,10 @@ export interface CommentActionReq {
     comment_text?: string;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof CommentActionReq
      */
-    comment_id?: number;
+    comment_id?: string;
 }
 /**
  *
@@ -115,16 +115,16 @@ export interface CommentListReply {
 export interface CommentListReq {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof CommentListReq
      */
-    video_id: number;
+    video_id: string;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof CommentListReq
      */
-    token?: number;
+    token?: string;
     /**
      *
      * @type {number}
@@ -140,10 +140,10 @@ export interface CommentListReq {
 export interface FollowActionRequest {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof FollowActionRequest
      */
-    user_id: number;
+    user_id: string;
     /**
      *
      * @type {number}
@@ -172,10 +172,10 @@ export interface GetFollowersReply {
 export interface GetFollowersRequest {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetFollowersRequest
      */
-    user_id: number;
+    user_id: string;
     /**
      *
      * @type {number}
@@ -184,10 +184,10 @@ export interface GetFollowersRequest {
     limit?: number;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetFollowersRequest
      */
-    token?: number;
+    token?: string;
 }
 /**
  *
@@ -210,10 +210,10 @@ export interface GetFollowingsReply {
 export interface GetFollowingsRequest {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetFollowingsRequest
      */
-    user_id: number;
+    user_id: string;
     /**
      *
      * @type {number}
@@ -222,10 +222,10 @@ export interface GetFollowingsRequest {
     limit: number;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetFollowingsRequest
      */
-    token: number;
+    token: string;
 }
 /**
  *
@@ -248,10 +248,10 @@ export interface GetLikedVideosReply {
 export interface GetLikedVideosRequest {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetLikedVideosRequest
      */
-    user_id: number;
+    user_id: string;
     /**
      *
      * @type {number}
@@ -260,10 +260,10 @@ export interface GetLikedVideosRequest {
     limit?: number;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetLikedVideosRequest
      */
-    token?: number;
+    token?: string;
 }
 /**
  *
@@ -286,16 +286,16 @@ export interface GetMessagesReply {
 export interface GetMessagesRequest {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetMessagesRequest
      */
-    user_id?: number;
+    user_id?: string;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetMessagesRequest
      */
-    token?: number;
+    token?: string;
     /**
      *
      * @type {number}
@@ -327,19 +327,13 @@ export interface GetRecentVideosRequest {
      * @type {number}
      * @memberof GetRecentVideosRequest
      */
-    user_id: number;
-    /**
-     *
-     * @type {number}
-     * @memberof GetRecentVideosRequest
-     */
     limit?: number;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetRecentVideosRequest
      */
-    token?: number;
+    token?: string;
 }
 /**
  *
@@ -362,10 +356,10 @@ export interface GetUserVideosReply {
 export interface GetUserVideosRequest {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetUserVideosRequest
      */
-    user_id: number;
+    user_id: string;
     /**
      *
      * @type {number}
@@ -374,10 +368,10 @@ export interface GetUserVideosRequest {
     limit?: number;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof GetUserVideosRequest
      */
-    token?: number;
+    token?: string;
 }
 /**
  *
@@ -400,16 +394,10 @@ export interface GetVideoReply {
 export interface LikeVideoRequest {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof LikeVideoRequest
      */
-    user_id: number;
-    /**
-     *
-     * @type {number}
-     * @memberof LikeVideoRequest
-     */
-    video_id: number;
+    video_id: string;
     /**
      *
      * @type {number}
@@ -463,34 +451,34 @@ export interface LoginRequest {
 export interface Message {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof Message
      */
-    id?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof Message
-     */
-    to_user_id?: number;
-    /**
-     *
-     * @type {number}
-     * @memberof Message
-     */
-    from_user_id?: number;
+    id: string;
     /**
      *
      * @type {string}
      * @memberof Message
      */
-    content?: string;
+    to_user_id: string;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof Message
      */
-    create_time?: number;
+    from_user_id: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Message
+     */
+    content: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Message
+     */
+    create_time: string;
 }
 /**
  *
@@ -544,10 +532,10 @@ export interface RegisterRequest {
 export interface SendMessageRequest {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof SendMessageRequest
      */
-    receiver_id: number;
+    receiver_id: string;
     /**
      *
      * @type {string}
@@ -559,7 +547,7 @@ export interface SendMessageRequest {
      * @type {number}
      * @memberof SendMessageRequest
      */
-    action?: number;
+    action: number;
 }
 /**
  *
@@ -582,10 +570,10 @@ export interface UpdateProfileResponse {
 export interface User {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof User
      */
-    id: number;
+    id: string;
     /**
      *
      * @type {string}
@@ -655,10 +643,10 @@ export interface User {
 export interface Video {
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof Video
      */
-    id?: number;
+    id: string;
     /**
      *
      * @type {User}
@@ -697,10 +685,10 @@ export interface Video {
     is_liked?: boolean;
     /**
      *
-     * @type {number}
+     * @type {string}
      * @memberof Video
      */
-    upload_time?: number;
+    upload_time?: string;
     /**
      *
      * @type {number}
@@ -1178,12 +1166,12 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          *
          * @summary Get user by ID
-         * @param {number} userId ID of the user to retrieve
+         * @param {string} userId ID of the user to retrieve
          * @param {string} authorization Bearer token for authentication
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUser: async (userId: number, authorization: string, options: any = {}): Promise<RequestArgs> => {
+        getUser: async (userId: string, authorization: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             if (userId === null || userId === undefined) {
                 throw new RequiredError('userId','Required parameter userId was null or undefined when calling getUser.');
@@ -1286,12 +1274,12 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          *
          * @summary Get video by ID
-         * @param {number} videoId ID of the video to retrieve
+         * @param {string} videoId ID of the video to retrieve
          * @param {string} [authorization] Bearer token for authentication
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVideo: async (videoId: number, authorization?: string, options: any = {}): Promise<RequestArgs> => {
+        getVideo: async (videoId: string, authorization?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'videoId' is not null or undefined
             if (videoId === null || videoId === undefined) {
                 throw new RequiredError('videoId','Required parameter videoId was null or undefined when calling getVideo.');
@@ -1348,7 +1336,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             if (likeVideoRequest === null || likeVideoRequest === undefined) {
                 throw new RequiredError('likeVideoRequest','Required parameter likeVideoRequest was null or undefined when calling likeVideo.');
             }
-            const localVarPath = `/likes`;
+            const localVarPath = `/videos/liked`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -1845,12 +1833,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          *
          * @summary Get user by ID
-         * @param {number} userId ID of the user to retrieve
+         * @param {string} userId ID of the user to retrieve
          * @param {string} authorization Bearer token for authentication
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUser(userId: number, authorization: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+        async getUser(userId: string, authorization: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getUser(userId, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
@@ -1875,12 +1863,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          *
          * @summary Get video by ID
-         * @param {number} videoId ID of the video to retrieve
+         * @param {string} videoId ID of the video to retrieve
          * @param {string} [authorization] Bearer token for authentication
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVideo(videoId: number, authorization?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetVideoReply>> {
+        async getVideo(videoId: string, authorization?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetVideoReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getVideo(videoId, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
@@ -2085,12 +2073,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         /**
          *
          * @summary Get user by ID
-         * @param {number} userId ID of the user to retrieve
+         * @param {string} userId ID of the user to retrieve
          * @param {string} authorization Bearer token for authentication
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUser(userId: number, authorization: string, options?: any): AxiosPromise<User> {
+        getUser(userId: string, authorization: string, options?: any): AxiosPromise<User> {
             return DefaultApiFp(configuration).getUser(userId, authorization, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2107,12 +2095,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         /**
          *
          * @summary Get video by ID
-         * @param {number} videoId ID of the video to retrieve
+         * @param {string} videoId ID of the video to retrieve
          * @param {string} [authorization] Bearer token for authentication
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVideo(videoId: number, authorization?: string, options?: any): AxiosPromise<GetVideoReply> {
+        getVideo(videoId: string, authorization?: string, options?: any): AxiosPromise<GetVideoReply> {
             return DefaultApiFp(configuration).getVideo(videoId, authorization, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2306,13 +2294,13 @@ export class DefaultApi extends BaseAPI {
     /**
      *
      * @summary Get user by ID
-     * @param {number} userId ID of the user to retrieve
+     * @param {string} userId ID of the user to retrieve
      * @param {string} authorization Bearer token for authentication
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getUser(userId: number, authorization: string, options?: any) {
+    public getUser(userId: string, authorization: string, options?: any) {
         return DefaultApiFp(this.configuration).getUser(userId, authorization, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -2332,13 +2320,13 @@ export class DefaultApi extends BaseAPI {
     /**
      *
      * @summary Get video by ID
-     * @param {number} videoId ID of the video to retrieve
+     * @param {string} videoId ID of the video to retrieve
      * @param {string} [authorization] Bearer token for authentication
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getVideo(videoId: number, authorization?: string, options?: any) {
+    public getVideo(videoId: string, authorization?: string, options?: any) {
         return DefaultApiFp(this.configuration).getVideo(videoId, authorization, options).then((request) => request(this.axios, this.basePath));
     }
 

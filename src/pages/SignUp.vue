@@ -104,6 +104,7 @@ const onSubmit = async () => {
     const user: User = data.account!;
     profileStore.setUser(user)
     profileStore.setToken(data.token!)
+    profileStore.setTokenAndUser(data.token!, user)
     await router.replace('/home');
   } catch (e) {
     const $q = useQuasar()

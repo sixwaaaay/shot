@@ -1,3 +1,16 @@
+<!--
+  - Copyright (c) 2023 sixwaaaay.
+  - Licensed under the Apache License, Version 2.0 (the "License");
+  - you may not use this file except in compliance with the License.
+  - You may obtain a copy of the License at
+  -     http://www.apache.org/licenses/LICENSE-2.
+  - Unless required by applicable law or agreed to in writing, software
+  - distributed under the License is distributed on an "AS IS" BASIS,
+  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  - See the License for the specific language governing permissions and
+  - limitations under the License.
+  -->
+
 <template>
   <q-page padding>
     <!-- content -->
@@ -14,13 +27,12 @@
     </div>
 
     <q-form @submit="onSubmit" class="q-gutter-md q-pa-lg">
-      <q-input v-model="model.name" label="昵称" outlined filled clearable lazy-rules name="name"
+      <q-input v-model="name" label="昵称" outlined filled clearable lazy-rules name="name"
                :rules="[val => val.length > 0 || '请输入昵称']"/>
-      <q-input v-model="model.bio" label="简介" outlined filled clearable lazy-rules name="bio"
+      <q-input v-model="bio" label="简介" outlined filled clearable lazy-rules name="bio"
                :rules="[val => val.length > 0 || '请输入简介']"/>
-      <!--      <q-file v-model="coverImage" label="封面" outlined filled clearable accept="image/*" name="coverImage"/>-->
-      <q-file v-model="model.avatar" label="头像" outlined filled clearable accept="image/*" name="avatar"/>
-      <q-file v-model="model.background" label="背景" outlined filled clearable accept="image/*" name="bg"/>
+      <q-file v-model="avatar" label="头像" outlined filled clearable accept="image/*" name="avatar"/>
+      <q-file v-model="background" label="背景" outlined filled clearable accept="image/*" name="bg"/>
 
       <div class="row justify-center">
         <q-btn type="submit" color="primary" class="q-px-lg" label="确认"/>
@@ -38,44 +50,64 @@ import {ref} from 'vue';
 import {useProfileStore} from "stores/profile";
 import {useRouter} from "vue-router";
 import {useQuasar} from "quasar";
+import {User} from "src/api";
+import {useWrapStore} from "stores/wrap";
 
-const model = {
-  name: '',
-  bio: '',
-  avatar: null,
-  background: null
-}
+const name = ref('')
+const bio = ref('')
+const avatar = ref(null)
+const background = ref(null)
 
 const profileStore = useProfileStore()
 const router = useRouter()
-model.name = profileStore.user.name
-model.bio = profileStore.user.bio ? profileStore.user.bio : ''
+name.value = profileStore.user.name
+bio.value = profileStore.user.bio ? profileStore.user.bio : ''
 
 const reset = () => {
-  model.name = profileStore.user.name
-  model.bio = profileStore.user.bio ? profileStore.user.bio : ''
-  model.avatar = null
-  model.background = null
+  name.value = profileStore.user.name
+  bio.value = profileStore.user.bio ? profileStore.user.bio : ''
+  avatar.value = null
+  background.value = null
 }
-
+const wrap = new useWrapStore()
 const onSubmit = async (event: { preventDefault: () => void; target: HTMLFormElement | undefined; }) => {
   event.preventDefault()
   const formData = new FormData(event.target)
   try {
-    let config = {headers: {'Content-Type': 'multipart/form-data'}};
+    let config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        "Authorization": profileStore.getBearerToken,
+      }
+    };
     const resp = await api.patch(
-      'http://localhost:8080/user',
+      'http://localhost:9090/users',
       formData,
       config
     )
+    console.log(resp.data)
+    const data = resp.data.profile
+    // parse as User
+    const user: User = {
+      name: data.name,
+      bio: data?.bio,
+      avatar_url: data?.avatar_url,
+      id: data.id
+    }
+    wrap.wrapImagePrefix([user])
+    console.log(data)
+    profileStore.setUser(
+      {
+        ...user,
+      }
+    )
     await router.replace('/profile')
   } catch (error) {
+    console.error(error)
     const $q = useQuasar()
-    $q.notify({
-      message: '修改失败',
-      color: 'negative',
-      position: 'top',
-      timeout: 1000
+    $q.dialog({
+      title: '错误',
+      message: "修改失败",
     })
   }
 }

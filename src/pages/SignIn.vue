@@ -48,17 +48,13 @@
       <div>
         <q-btn dense rounded outlined label="第一次使用？请点击注册。" color="primary" flat to="/sign/up" class="q-mt-md"/>
       </div>
-
     </q-form>
-
   </q-page>
 </template>
 
 <script setup lang="ts">
 
 import {useRouter} from 'vue-router'
-import {useQuasar} from 'quasar'
-
 
 import {reactive} from 'vue';
 import {Configuration, DefaultApi, LoginRequest, User} from "src/api";
@@ -90,19 +86,21 @@ const onSubmit = async () => {
     if (res.data.token === undefined) {
       throw new Error("登录失败")
     }
+    console.log(res.data)
     const data = res.data;
     const user: User = data.account!;
     profileStore.setUser(user)
     profileStore.setToken(data.token!)
+    profileStore.setTokenAndUser(data.token!, user)
     await router.replace('/home');
   } catch (error) {
-    const $q = useQuasar()
-    $q.notify({
-      message: "登录失败, 请检查邮箱和密码",
-      color: 'negative',
-      position: 'top',
-      timeout: 1000
-    })
+    // const $q = useQuasar()
+    // $q.notify({
+    //   message: "登录失败, 请检查邮箱和密码",
+    //   color: 'negative',
+    //   position: 'top',
+    //   timeout: 1000
+    // })
   }
 }
 
