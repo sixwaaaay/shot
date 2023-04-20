@@ -29,9 +29,8 @@
 import {
   Configuration,
   DefaultApi,
-  GetLikedVideosReply,
   GetLikedVideosRequest,
-  GetUserVideosRequest, LikeVideoRequest,
+  LikeVideoRequest,
   Video
 } from "src/api";
 import {useProfileStore} from "stores/profile";
