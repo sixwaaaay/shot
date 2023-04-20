@@ -13,10 +13,10 @@
 
 <template>
   <div class="bg-white text-black" style="height: 40vh">
-    <div class="text-h5 q-mb-md text-center q-py-xs">
+    <div class="text-h5 q-mb-md text-center q-py-xs absolute-top bg-white">
       <p>评论</p>
     </div>
-    <div class="chat">
+    <div class="chat" style="margin-top: 45px">
 
       <div v-for="(comment, index) in comments" :key="index"
            :class="{ 'message': true, 'received': true }">
@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="flex">
+    <div class="flex fixed-bottom bg-white">
       <q-input
         v-model="message"
         filled
@@ -57,6 +57,7 @@ import {onMounted, ref} from "vue";
 import {Comment, CommentActionReq, CommentListReq} from "src/api";
 import {client} from "boot/defaultapi";
 import {useProfileStore} from "stores/profile";
+import {useWrapStore} from "stores/wrap";
 
 export interface CommentProps {
   video_id: string
@@ -69,14 +70,33 @@ const message = ref('')
 
 const comments = ref([] as Comment[])
 const profileStore = useProfileStore()
+const wrap = new useWrapStore()
 onMounted(async () => {
   let req: CommentListReq = {
     video_id: props.video_id
   }
   let response = await client.getComments(req, profileStore.getBearerToken);
   console.log(response)
-  comments.value = response.data.comment_list || []
-})
+  if (response.data !== undefined && response.data.comment_list !== undefined) {
+    wrap.wrapCommentPrefix(response.data.comment_list)
+  }
+  if (response.data !== undefined && response.data.comment_list !== undefined) {
+    comments.value = response.data.comment_list
+  }
+});
+const dataFormatter = (timestamp: number) => {
+  const now = new Date()
+  const date = new Date(timestamp)
+  const diff = now.getTime() - date.getTime()
+  if (diff < 60 * 60 * 1000) {
+    return Math.floor(diff / (60 * 1000)) + '分钟前'
+  } else if (diff < 24 * 60 * 60 * 1000) {
+    return Math.floor(diff / (60 * 60 * 1000)) + '小时前'
+  } else {
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+  }
+}
+
 const sendComment = async () => {
   // console.log(message.value)
   // message.value = ''
@@ -87,6 +107,9 @@ const sendComment = async () => {
   }
   let resp = await client.createComment(profileStore.getBearerToken, req);
   console.log(resp)
+  if (resp.data !== undefined && resp.data.comment !== undefined) {
+    wrap.wrapCommentPrefix([resp.data.comment])
+  }
   if (resp.data !== undefined && resp.data.comment !== undefined) {
     comments.value.push(resp.data.comment)
   }
