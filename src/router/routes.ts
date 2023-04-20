@@ -25,10 +25,16 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/friends',
         component: () => import('pages/Friends.vue'),
+        meta: {
+          requiresAuth: true,
+        }
       },
       {
         path: '/inbox',
         component: () => import('pages/Inbox.vue'),
+        meta: {
+          requiresAuth: true,
+        }
       },
       {
         path: '/profile',
@@ -36,7 +42,12 @@ const routes: RouteRecordRaw[] = [
         meta: {
           requiresAuth: true,
         }
-      }],
+      },
+      {
+        path: '',
+        redirect: '/home',
+      }
+      ],
   },
   {
     path: '/sign',
@@ -66,6 +77,14 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'chat',
         component: () => import('pages/MessageChat.vue'),
+      },
+      {
+        path: 'followers',
+        component: () => import('pages/Followers.vue'),
+      },
+      {
+        path: 'following',
+        component: () => import('pages/Followings.vue'),
       }
     ]
   },
@@ -76,10 +95,16 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'video',
         component: () => import('pages/VideoUploader.vue'),
+        meta: {
+          requiresAuth: true,
+        }
       },
       {
         path: 'profile',
         component: () => import('pages/ProfileEdit.vue'),
+        meta: {
+          requiresAuth: true,
+        }
       }
     ]
   },
