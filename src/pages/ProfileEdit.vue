@@ -45,13 +45,12 @@
 </template>
 
 <script setup lang="ts">
-import {api} from "boot/axios";
 import {ref} from 'vue';
 import {useProfileStore} from "stores/profile";
 import {useRouter} from "vue-router";
 import {useQuasar} from "quasar";
-import {User} from "src/api";
 import {useWrapStore} from "stores/wrap";
+import {client} from "boot/defaultapi";
 
 const name = ref('')
 const bio = ref('')
@@ -72,35 +71,20 @@ const reset = () => {
 const wrap = new useWrapStore()
 const onSubmit = async (event: { preventDefault: () => void; target: HTMLFormElement | undefined; }) => {
   event.preventDefault()
-  const formData = new FormData(event.target)
   try {
-    let config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        "Authorization": profileStore.getBearerToken,
-      }
-    };
-    const resp = await api.patch(
-      'http://localhost:9090/users',
-      formData,
-      config
-    )
+    const resp = await client.updateProfile(profileStore.getBearerToken,
+    name.value,
+    bio.value,
+    avatar.value,
+    background.value)
     console.log(resp.data)
     const data = resp.data.profile
     // parse as User
-    const user: User = {
-      name: data.name,
-      bio: data?.bio,
-      avatar_url: data?.avatar_url,
-      id: data.id
+    if (data !== undefined) {
+      wrap.wrapImagePrefix([data])
+      profileStore.setUser(data)
     }
-    wrap.wrapImagePrefix([user])
-    console.log(data)
-    profileStore.setUser(
-      {
-        ...user,
-      }
-    )
+
     await router.replace('/profile')
   } catch (error) {
     console.error(error)
