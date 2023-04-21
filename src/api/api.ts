@@ -50,6 +50,7 @@ export interface Comment {
      */
     user?: User;
 }
+
 /**
  *
  * @export
@@ -63,6 +64,7 @@ export interface CommentActionReply {
      */
     comment?: Comment;
 }
+
 /**
  *
  * @export
@@ -94,6 +96,7 @@ export interface CommentActionReq {
      */
     comment_id?: string;
 }
+
 /**
  *
  * @export
@@ -107,6 +110,7 @@ export interface CommentListReply {
      */
     comment_list?: Array<Comment>;
 }
+
 /**
  *
  * @export
@@ -132,6 +136,7 @@ export interface CommentListReq {
      */
     limit?: number;
 }
+
 /**
  *
  * @export
@@ -151,6 +156,7 @@ export interface FollowActionRequest {
      */
     action: number;
 }
+
 /**
  *
  * @export
@@ -164,6 +170,7 @@ export interface GetFollowersReply {
      */
     users?: Array<User>;
 }
+
 /**
  *
  * @export
@@ -189,6 +196,7 @@ export interface GetFollowersRequest {
      */
     token?: string;
 }
+
 /**
  *
  * @export
@@ -202,6 +210,7 @@ export interface GetFollowingsReply {
      */
     users?: Array<User>;
 }
+
 /**
  *
  * @export
@@ -227,6 +236,41 @@ export interface GetFollowingsRequest {
      */
     token: string;
 }
+
+/**
+ *
+ * @export
+ * @interface GetFriendsReply
+ */
+export interface GetFriendsReply {
+    /**
+     *
+     * @type {Array<User>}
+     * @memberof GetFriendsReply
+     */
+    users?: Array<User>;
+}
+
+/**
+ *
+ * @export
+ * @interface GetFriendsRequest
+ */
+export interface GetFriendsRequest {
+    /**
+     *
+     * @type {number}
+     * @memberof GetFriendsRequest
+     */
+    limit: number;
+    /**
+     *
+     * @type {string}
+     * @memberof GetFriendsRequest
+     */
+    token: string;
+}
+
 /**
  *
  * @export
@@ -240,6 +284,7 @@ export interface GetLikedVideosReply {
      */
     videos?: Array<Video>;
 }
+
 /**
  *
  * @export
@@ -265,6 +310,7 @@ export interface GetLikedVideosRequest {
      */
     token?: string;
 }
+
 /**
  *
  * @export
@@ -278,6 +324,7 @@ export interface GetMessagesReply {
      */
     message_list?: Array<Message>;
 }
+
 /**
  *
  * @export
@@ -289,20 +336,15 @@ export interface GetMessagesRequest {
      * @type {string}
      * @memberof GetMessagesRequest
      */
-    user_id?: string;
+    to_user_id?: string;
     /**
      *
      * @type {string}
      * @memberof GetMessagesRequest
      */
     token?: string;
-    /**
-     *
-     * @type {number}
-     * @memberof GetMessagesRequest
-     */
-    limit?: number;
 }
+
 /**
  *
  * @export
@@ -316,6 +358,7 @@ export interface GetRecentVideosReply {
      */
     videos?: Array<Video>;
 }
+
 /**
  *
  * @export
@@ -335,6 +378,7 @@ export interface GetRecentVideosRequest {
      */
     token?: string;
 }
+
 /**
  *
  * @export
@@ -348,6 +392,7 @@ export interface GetUserVideosReply {
      */
     videos?: Array<Video>;
 }
+
 /**
  *
  * @export
@@ -373,6 +418,7 @@ export interface GetUserVideosRequest {
      */
     token?: string;
 }
+
 /**
  *
  * @export
@@ -386,6 +432,7 @@ export interface GetVideoReply {
      */
     video?: Video;
 }
+
 /**
  *
  * @export
@@ -405,6 +452,7 @@ export interface LikeVideoRequest {
      */
     action: number;
 }
+
 /**
  *
  * @export
@@ -424,6 +472,7 @@ export interface LoginReply {
      */
     token?: string;
 }
+
 /**
  *
  * @export
@@ -443,6 +492,7 @@ export interface LoginRequest {
      */
     password: string;
 }
+
 /**
  *
  * @export
@@ -480,6 +530,7 @@ export interface Message {
      */
     create_time: string;
 }
+
 /**
  *
  * @export
@@ -499,6 +550,7 @@ export interface RegisterReply {
      */
     token?: string;
 }
+
 /**
  *
  * @export
@@ -524,6 +576,7 @@ export interface RegisterRequest {
      */
     name: string;
 }
+
 /**
  *
  * @export
@@ -535,7 +588,7 @@ export interface SendMessageRequest {
      * @type {string}
      * @memberof SendMessageRequest
      */
-    receiver_id: string;
+    to_user_id: string;
     /**
      *
      * @type {string}
@@ -547,8 +600,9 @@ export interface SendMessageRequest {
      * @type {number}
      * @memberof SendMessageRequest
      */
-    action: number;
+    action_type: number;
 }
+
 /**
  *
  * @export
@@ -562,6 +616,7 @@ export interface UpdateProfileResponse {
      */
     profile?: User;
 }
+
 /**
  *
  * @export
@@ -635,6 +690,7 @@ export interface User {
      */
     followers?: number;
 }
+
 /**
  *
  * @export
@@ -714,11 +770,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         createComment: async (authorization: string, commentActionReq: CommentActionReq, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'authorization' is not null or undefined
             if (authorization === null || authorization === undefined) {
-                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling createComment.');
+                throw new RequiredError('authorization', 'Required parameter authorization was null or undefined when calling createComment.');
             }
             // verify required parameter 'commentActionReq' is not null or undefined
             if (commentActionReq === null || commentActionReq === undefined) {
-                throw new RequiredError('commentActionReq','Required parameter commentActionReq was null or undefined when calling createComment.');
+                throw new RequiredError('commentActionReq', 'Required parameter commentActionReq was null or undefined when calling createComment.');
             }
             const localVarPath = `/comments`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -728,14 +784,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -754,7 +809,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(commentActionReq !== undefined ? commentActionReq : {})
                 : (commentActionReq || "");
 
@@ -774,11 +829,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         followAction: async (authorization: string, followActionRequest: FollowActionRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'authorization' is not null or undefined
             if (authorization === null || authorization === undefined) {
-                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling followAction.');
+                throw new RequiredError('authorization', 'Required parameter authorization was null or undefined when calling followAction.');
             }
             // verify required parameter 'followActionRequest' is not null or undefined
             if (followActionRequest === null || followActionRequest === undefined) {
-                throw new RequiredError('followActionRequest','Required parameter followActionRequest was null or undefined when calling followAction.');
+                throw new RequiredError('followActionRequest', 'Required parameter followActionRequest was null or undefined when calling followAction.');
             }
             const localVarPath = `/follow`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -788,14 +843,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -814,7 +868,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(followActionRequest !== undefined ? followActionRequest : {})
                 : (followActionRequest || "");
 
@@ -834,7 +888,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         getComments: async (commentListReq: CommentListReq, authorization?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'commentListReq' is not null or undefined
             if (commentListReq === null || commentListReq === undefined) {
-                throw new RequiredError('commentListReq','Required parameter commentListReq was null or undefined when calling getComments.');
+                throw new RequiredError('commentListReq', 'Required parameter commentListReq was null or undefined when calling getComments.');
             }
             const localVarPath = `/comments`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -844,14 +898,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -870,7 +923,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(commentListReq !== undefined ? commentListReq : {})
                 : (commentListReq || "");
 
@@ -890,7 +943,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         getFollowers: async (getFollowersRequest: GetFollowersRequest, authorization?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'getFollowersRequest' is not null or undefined
             if (getFollowersRequest === null || getFollowersRequest === undefined) {
-                throw new RequiredError('getFollowersRequest','Required parameter getFollowersRequest was null or undefined when calling getFollowers.');
+                throw new RequiredError('getFollowersRequest', 'Required parameter getFollowersRequest was null or undefined when calling getFollowers.');
             }
             const localVarPath = `/follow/followers`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -900,14 +953,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -926,7 +978,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(getFollowersRequest !== undefined ? getFollowersRequest : {})
                 : (getFollowersRequest || "");
 
@@ -946,7 +998,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         getFollowing: async (getFollowingsRequest: GetFollowingsRequest, authorization?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'getFollowingsRequest' is not null or undefined
             if (getFollowingsRequest === null || getFollowingsRequest === undefined) {
-                throw new RequiredError('getFollowingsRequest','Required parameter getFollowingsRequest was null or undefined when calling getFollowing.');
+                throw new RequiredError('getFollowingsRequest', 'Required parameter getFollowingsRequest was null or undefined when calling getFollowing.');
             }
             const localVarPath = `/follow/following`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -956,14 +1008,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -982,9 +1033,68 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(getFollowingsRequest !== undefined ? getFollowingsRequest : {})
                 : (getFollowingsRequest || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         *
+         * @summary Get friends of a user
+         * @param {string} authorization Bearer token for authentication
+         * @param {GetFriendsRequest} getFriendsRequest User ID and action to perform
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFriends: async (authorization: string, getFriendsRequest: GetFriendsRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'authorization' is not null or undefined
+            if (authorization === null || authorization === undefined) {
+                throw new RequiredError('authorization', 'Required parameter authorization was null or undefined when calling getFriends.');
+            }
+            // verify required parameter 'getFriendsRequest' is not null or undefined
+            if (getFriendsRequest === null || getFriendsRequest === undefined) {
+                throw new RequiredError('getFriendsRequest', 'Required parameter getFriendsRequest was null or undefined when calling getFriends.');
+            }
+            const localVarPath = `/follow/friends`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (authorization !== undefined && authorization !== null) {
+                localVarHeaderParameter['Authorization'] = String(authorization);
+            }
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            const queryParameters = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                queryParameters.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.query) {
+                queryParameters.set(key, options.query[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(queryParameters)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const nonString = typeof getFriendsRequest !== 'string';
+            const needsSerialization = nonString && configuration && configuration.isJsonMime
+                ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
+                : nonString;
+            localVarRequestOptions.data = needsSerialization
+                ? JSON.stringify(getFriendsRequest !== undefined ? getFriendsRequest : {})
+                : (getFriendsRequest || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -1002,7 +1112,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         getLikedVideos: async (getLikedVideosRequest: GetLikedVideosRequest, authorization?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'getLikedVideosRequest' is not null or undefined
             if (getLikedVideosRequest === null || getLikedVideosRequest === undefined) {
-                throw new RequiredError('getLikedVideosRequest','Required parameter getLikedVideosRequest was null or undefined when calling getLikedVideos.');
+                throw new RequiredError('getLikedVideosRequest', 'Required parameter getLikedVideosRequest was null or undefined when calling getLikedVideos.');
             }
             const localVarPath = `/videos/liked`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1012,14 +1122,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1038,7 +1147,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(getLikedVideosRequest !== undefined ? getLikedVideosRequest : {})
                 : (getLikedVideosRequest || "");
 
@@ -1058,11 +1167,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         getMessages: async (authorization: string, getMessagesRequest: GetMessagesRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'authorization' is not null or undefined
             if (authorization === null || authorization === undefined) {
-                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling getMessages.');
+                throw new RequiredError('authorization', 'Required parameter authorization was null or undefined when calling getMessages.');
             }
             // verify required parameter 'getMessagesRequest' is not null or undefined
             if (getMessagesRequest === null || getMessagesRequest === undefined) {
-                throw new RequiredError('getMessagesRequest','Required parameter getMessagesRequest was null or undefined when calling getMessages.');
+                throw new RequiredError('getMessagesRequest', 'Required parameter getMessagesRequest was null or undefined when calling getMessages.');
             }
             const localVarPath = `/messages`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1072,14 +1181,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1098,7 +1206,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(getMessagesRequest !== undefined ? getMessagesRequest : {})
                 : (getMessagesRequest || "");
 
@@ -1118,7 +1226,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         getRecentVideos: async (getRecentVideosRequest: GetRecentVideosRequest, authorization?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'getRecentVideosRequest' is not null or undefined
             if (getRecentVideosRequest === null || getRecentVideosRequest === undefined) {
-                throw new RequiredError('getRecentVideosRequest','Required parameter getRecentVideosRequest was null or undefined when calling getRecentVideos.');
+                throw new RequiredError('getRecentVideosRequest', 'Required parameter getRecentVideosRequest was null or undefined when calling getRecentVideos.');
             }
             const localVarPath = `/videos/recent`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1128,14 +1236,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1154,7 +1261,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(getRecentVideosRequest !== undefined ? getRecentVideosRequest : {})
                 : (getRecentVideosRequest || "");
 
@@ -1174,11 +1281,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         getUser: async (userId: string, authorization: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             if (userId === null || userId === undefined) {
-                throw new RequiredError('userId','Required parameter userId was null or undefined when calling getUser.');
+                throw new RequiredError('userId', 'Required parameter userId was null or undefined when calling getUser.');
             }
             // verify required parameter 'authorization' is not null or undefined
             if (authorization === null || authorization === undefined) {
-                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling getUser.');
+                throw new RequiredError('authorization', 'Required parameter authorization was null or undefined when calling getUser.');
             }
             const localVarPath = `/users/{user_id}`
                 .replace(`{${"user_id"}}`, encodeURIComponent(String(userId)));
@@ -1189,14 +1296,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             const queryParameters = new URLSearchParams(localVarUrlObj.search);
@@ -1245,7 +1351,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             }
 
 
-
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             const queryParameters = new URLSearchParams(localVarUrlObj.search);
@@ -1262,7 +1367,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(getUserVideosRequest !== undefined ? getUserVideosRequest : {})
                 : (getUserVideosRequest || "");
 
@@ -1282,7 +1387,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         getVideo: async (videoId: string, authorization?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'videoId' is not null or undefined
             if (videoId === null || videoId === undefined) {
-                throw new RequiredError('videoId','Required parameter videoId was null or undefined when calling getVideo.');
+                throw new RequiredError('videoId', 'Required parameter videoId was null or undefined when calling getVideo.');
             }
             const localVarPath = `/videos/{video_id}`
                 .replace(`{${"video_id"}}`, encodeURIComponent(String(videoId)));
@@ -1293,14 +1398,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             const queryParameters = new URLSearchParams(localVarUrlObj.search);
@@ -1330,11 +1434,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         likeVideo: async (authorization: string, likeVideoRequest: LikeVideoRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'authorization' is not null or undefined
             if (authorization === null || authorization === undefined) {
-                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling likeVideo.');
+                throw new RequiredError('authorization', 'Required parameter authorization was null or undefined when calling likeVideo.');
             }
             // verify required parameter 'likeVideoRequest' is not null or undefined
             if (likeVideoRequest === null || likeVideoRequest === undefined) {
-                throw new RequiredError('likeVideoRequest','Required parameter likeVideoRequest was null or undefined when calling likeVideo.');
+                throw new RequiredError('likeVideoRequest', 'Required parameter likeVideoRequest was null or undefined when calling likeVideo.');
             }
             const localVarPath = `/videos/liked`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1344,14 +1448,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1370,7 +1473,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(likeVideoRequest !== undefined ? likeVideoRequest : {})
                 : (likeVideoRequest || "");
 
@@ -1389,7 +1492,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         login: async (loginRequest: LoginRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'loginRequest' is not null or undefined
             if (loginRequest === null || loginRequest === undefined) {
-                throw new RequiredError('loginRequest','Required parameter loginRequest was null or undefined when calling login.');
+                throw new RequiredError('loginRequest', 'Required parameter loginRequest was null or undefined when calling login.');
             }
             const localVarPath = `/sign/in`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1399,10 +1502,9 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1421,7 +1523,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(loginRequest !== undefined ? loginRequest : {})
                 : (loginRequest || "");
 
@@ -1440,7 +1542,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         register: async (registerRequest: RegisterRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'registerRequest' is not null or undefined
             if (registerRequest === null || registerRequest === undefined) {
-                throw new RequiredError('registerRequest','Required parameter registerRequest was null or undefined when calling register.');
+                throw new RequiredError('registerRequest', 'Required parameter registerRequest was null or undefined when calling register.');
             }
             const localVarPath = `/sign/up`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1450,10 +1552,9 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1472,7 +1573,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(registerRequest !== undefined ? registerRequest : {})
                 : (registerRequest || "");
 
@@ -1492,11 +1593,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         sendMessage: async (authorization: string, sendMessageRequest: SendMessageRequest, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'authorization' is not null or undefined
             if (authorization === null || authorization === undefined) {
-                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling sendMessage.');
+                throw new RequiredError('authorization', 'Required parameter authorization was null or undefined when calling sendMessage.');
             }
             // verify required parameter 'sendMessageRequest' is not null or undefined
             if (sendMessageRequest === null || sendMessageRequest === undefined) {
-                throw new RequiredError('sendMessageRequest','Required parameter sendMessageRequest was null or undefined when calling sendMessage.');
+                throw new RequiredError('sendMessageRequest', 'Required parameter sendMessageRequest was null or undefined when calling sendMessage.');
             }
             const localVarPath = `/messages`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1506,14 +1607,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             if (authorization !== undefined && authorization !== null) {
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1532,7 +1632,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const needsSerialization = nonString && configuration && configuration.isJsonMime
                 ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
                 : nonString;
-            localVarRequestOptions.data =  needsSerialization
+            localVarRequestOptions.data = needsSerialization
                 ? JSON.stringify(sendMessageRequest !== undefined ? sendMessageRequest : {})
                 : (sendMessageRequest || "");
 
@@ -1545,22 +1645,19 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          *
          * @summary Update user profile
          * @param {string} authorization Bearer token for authentication
-         * @param {string} [userId]
          * @param {string} [name]
          * @param {string} [bio]
          * @param {any} [avatar]
          * @param {any} [bg]
-         * @param {string} [avatarUrl]
-         * @param {string} [bgUrl]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateProfile: async (authorization: string, userId?: string, name?: string, bio?: string, avatar?: any, bg?: any, avatarUrl?: string, bgUrl?: string, options: any = {}): Promise<RequestArgs> => {
+        updateProfile: async (authorization: string, name?: string, bio?: string, avatar?: any, bg?: any, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'authorization' is not null or undefined
             if (authorization === null || authorization === undefined) {
-                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling updateProfile.');
+                throw new RequiredError('authorization', 'Required parameter authorization was null or undefined when calling updateProfile.');
             }
-            const localVarPath = `/users/profile`;
+            const localVarPath = `/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -1568,7 +1665,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
@@ -1577,10 +1674,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 localVarHeaderParameter['Authorization'] = String(authorization);
             }
 
-
-            if (userId !== undefined) {
-                localVarFormParams.append('user_id', userId as any);
-            }
 
             if (name !== undefined) {
                 localVarFormParams.append('name', name as any);
@@ -1596,14 +1689,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
             if (bg !== undefined) {
                 localVarFormParams.append('bg', bg as any);
-            }
-
-            if (avatarUrl !== undefined) {
-                localVarFormParams.append('avatar_url', avatarUrl as any);
-            }
-
-            if (bgUrl !== undefined) {
-                localVarFormParams.append('bg_url', bgUrl as any);
             }
 
 
@@ -1632,16 +1717,17 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} authorization Bearer token for authentication
          * @param {string} [title]
          * @param {string} [description]
+         * @param {string} [category]
          * @param {any} [video]
          * @param {any} [cover]
          * @param {Array<string>} [tags]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadVideo: async (authorization: string, title?: string, description?: string, video?: any, cover?: any, tags?: Array<string>, options: any = {}): Promise<RequestArgs> => {
+        uploadVideo: async (authorization: string, title?: string, description?: string, category?: string, video?: any, cover?: any, tags?: Array<string>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'authorization' is not null or undefined
             if (authorization === null || authorization === undefined) {
-                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling uploadVideo.');
+                throw new RequiredError('authorization', 'Required parameter authorization was null or undefined when calling uploadVideo.');
             }
             const localVarPath = `/videos`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1651,7 +1737,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
@@ -1669,6 +1755,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 localVarFormParams.append('description', description as any);
             }
 
+            if (category !== undefined) {
+                localVarFormParams.append('category', category as any);
+            }
+
             if (video !== undefined) {
                 localVarFormParams.append('video', video as any);
             }
@@ -1676,10 +1766,9 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             if (cover !== undefined) {
                 localVarFormParams.append('cover', cover as any);
             }
-                if (tags) {
+            if (tags) {
                 localVarFormParams.append(tags.join(COLLECTION_FORMATS.csv));
             }
-
 
 
             localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
@@ -1708,7 +1797,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
  * DefaultApi - functional programming interface
  * @export
  */
-export const DefaultApiFp = function(configuration?: Configuration) {
+export const DefaultApiFp = function (configuration?: Configuration) {
     return {
         /**
          *
@@ -1721,7 +1810,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async createComment(authorization: string, commentActionReq: CommentActionReq, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentActionReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).createComment(authorization, commentActionReq, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1736,7 +1828,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async followAction(authorization: string, followActionRequest: FollowActionRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).followAction(authorization, followActionRequest, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1751,7 +1846,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getComments(commentListReq: CommentListReq, authorization?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CommentListReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getComments(commentListReq, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1766,7 +1864,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getFollowers(getFollowersRequest: GetFollowersRequest, authorization?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFollowersReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getFollowers(getFollowersRequest, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1781,7 +1882,28 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getFollowing(getFollowingsRequest: GetFollowingsRequest, authorization?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFollowingsReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getFollowing(getFollowingsRequest, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         *
+         * @summary Get friends of a user
+         * @param {string} authorization Bearer token for authentication
+         * @param {GetFriendsRequest} getFriendsRequest User ID and action to perform
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getFriends(authorization: string, getFriendsRequest: GetFriendsRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFriendsReply>> {
+            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getFriends(authorization, getFriendsRequest, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1796,7 +1918,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getLikedVideos(getLikedVideosRequest: GetLikedVideosRequest, authorization?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLikedVideosReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getLikedVideos(getLikedVideosRequest, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1811,7 +1936,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getMessages(authorization: string, getMessagesRequest: GetMessagesRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMessagesReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getMessages(authorization, getMessagesRequest, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1826,7 +1954,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getRecentVideos(getRecentVideosRequest: GetRecentVideosRequest, authorization?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetRecentVideosReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getRecentVideos(getRecentVideosRequest, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1841,7 +1972,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getUser(userId: string, authorization: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getUser(userId, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1856,7 +1990,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getUserVideos(getUserVideosRequest: GetUserVideosRequest, authorization?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserVideosReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getUserVideos(getUserVideosRequest, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1871,7 +2008,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getVideo(videoId: string, authorization?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetVideoReply>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).getVideo(videoId, authorization, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1886,7 +2026,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async likeVideo(authorization: string, likeVideoRequest: LikeVideoRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).likeVideo(authorization, likeVideoRequest, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1929,7 +2072,10 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async sendMessage(authorization: string, sendMessageRequest: SendMessageRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).sendMessage(authorization, sendMessageRequest, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1937,20 +2083,20 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          *
          * @summary Update user profile
          * @param {string} authorization Bearer token for authentication
-         * @param {string} [userId]
          * @param {string} [name]
          * @param {string} [bio]
          * @param {any} [avatar]
          * @param {any} [bg]
-         * @param {string} [avatarUrl]
-         * @param {string} [bgUrl]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateProfile(authorization: string, userId?: string, name?: string, bio?: string, avatar?: any, bg?: any, avatarUrl?: string, bgUrl?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateProfileResponse>> {
-            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).updateProfile(authorization, userId, name, bio, avatar, bg, avatarUrl, bgUrl, options);
+        async updateProfile(authorization: string, name?: string, bio?: string, avatar?: any, bg?: any, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateProfileResponse>> {
+            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).updateProfile(authorization, name, bio, avatar, bg, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -1960,16 +2106,20 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {string} authorization Bearer token for authentication
          * @param {string} [title]
          * @param {string} [description]
+         * @param {string} [category]
          * @param {any} [video]
          * @param {any} [cover]
          * @param {Array<string>} [tags]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async uploadVideo(authorization: string, title?: string, description?: string, video?: any, cover?: any, tags?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).uploadVideo(authorization, title, description, video, cover, tags, options);
+        async uploadVideo(authorization: string, title?: string, description?: string, category?: string, video?: any, cover?: any, tags?: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await DefaultApiAxiosParamCreator(configuration).uploadVideo(authorization, title, description, category, video, cover, tags, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                const axiosRequestArgs = {
+                    ...localVarAxiosArgs.options,
+                    url: (configuration?.basePath || basePath) + localVarAxiosArgs.url
+                };
                 return axios.request(axiosRequestArgs);
             };
         },
@@ -2036,6 +2186,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         getFollowing(getFollowingsRequest: GetFollowingsRequest, authorization?: string, options?: any): AxiosPromise<GetFollowingsReply> {
             return DefaultApiFp(configuration).getFollowing(getFollowingsRequest, authorization, options).then((request) => request(axios, basePath));
+        },
+        /**
+         *
+         * @summary Get friends of a user
+         * @param {string} authorization Bearer token for authentication
+         * @param {GetFriendsRequest} getFriendsRequest User ID and action to perform
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFriends(authorization: string, getFriendsRequest: GetFriendsRequest, options?: any): AxiosPromise<GetFriendsReply> {
+            return DefaultApiFp(configuration).getFriends(authorization, getFriendsRequest, options).then((request) => request(axios, basePath));
         },
         /**
          *
@@ -2149,18 +2310,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          *
          * @summary Update user profile
          * @param {string} authorization Bearer token for authentication
-         * @param {string} [userId]
          * @param {string} [name]
          * @param {string} [bio]
          * @param {any} [avatar]
          * @param {any} [bg]
-         * @param {string} [avatarUrl]
-         * @param {string} [bgUrl]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateProfile(authorization: string, userId?: string, name?: string, bio?: string, avatar?: any, bg?: any, avatarUrl?: string, bgUrl?: string, options?: any): AxiosPromise<UpdateProfileResponse> {
-            return DefaultApiFp(configuration).updateProfile(authorization, userId, name, bio, avatar, bg, avatarUrl, bgUrl, options).then((request) => request(axios, basePath));
+        updateProfile(authorization: string, name?: string, bio?: string, avatar?: any, bg?: any, options?: any): AxiosPromise<UpdateProfileResponse> {
+            return DefaultApiFp(configuration).updateProfile(authorization, name, bio, avatar, bg, options).then((request) => request(axios, basePath));
         },
         /**
          *
@@ -2168,14 +2326,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {string} authorization Bearer token for authentication
          * @param {string} [title]
          * @param {string} [description]
+         * @param {string} [category]
          * @param {any} [video]
          * @param {any} [cover]
          * @param {Array<string>} [tags]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadVideo(authorization: string, title?: string, description?: string, video?: any, cover?: any, tags?: Array<string>, options?: any): AxiosPromise<object> {
-            return DefaultApiFp(configuration).uploadVideo(authorization, title, description, video, cover, tags, options).then((request) => request(axios, basePath));
+        uploadVideo(authorization: string, title?: string, description?: string, category?: string, video?: any, cover?: any, tags?: Array<string>, options?: any): AxiosPromise<object> {
+            return DefaultApiFp(configuration).uploadVideo(authorization, title, description, category, video, cover, tags, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2250,6 +2409,19 @@ export class DefaultApi extends BaseAPI {
      */
     public getFollowing(getFollowingsRequest: GetFollowingsRequest, authorization?: string, options?: any) {
         return DefaultApiFp(this.configuration).getFollowing(getFollowingsRequest, authorization, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     *
+     * @summary Get friends of a user
+     * @param {string} authorization Bearer token for authentication
+     * @param {GetFriendsRequest} getFriendsRequest User ID and action to perform
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getFriends(authorization: string, getFriendsRequest: GetFriendsRequest, options?: any) {
+        return DefaultApiFp(this.configuration).getFriends(authorization, getFriendsRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2384,19 +2556,16 @@ export class DefaultApi extends BaseAPI {
      *
      * @summary Update user profile
      * @param {string} authorization Bearer token for authentication
-     * @param {string} [userId]
      * @param {string} [name]
      * @param {string} [bio]
      * @param {any} [avatar]
      * @param {any} [bg]
-     * @param {string} [avatarUrl]
-     * @param {string} [bgUrl]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public updateProfile(authorization: string, userId?: string, name?: string, bio?: string, avatar?: any, bg?: any, avatarUrl?: string, bgUrl?: string, options?: any) {
-        return DefaultApiFp(this.configuration).updateProfile(authorization, userId, name, bio, avatar, bg, avatarUrl, bgUrl, options).then((request) => request(this.axios, this.basePath));
+    public updateProfile(authorization: string, name?: string, bio?: string, avatar?: any, bg?: any, options?: any) {
+        return DefaultApiFp(this.configuration).updateProfile(authorization, name, bio, avatar, bg, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2405,6 +2574,7 @@ export class DefaultApi extends BaseAPI {
      * @param {string} authorization Bearer token for authentication
      * @param {string} [title]
      * @param {string} [description]
+     * @param {string} [category]
      * @param {any} [video]
      * @param {any} [cover]
      * @param {Array<string>} [tags]
@@ -2412,7 +2582,7 @@ export class DefaultApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public uploadVideo(authorization: string, title?: string, description?: string, video?: any, cover?: any, tags?: Array<string>, options?: any) {
-        return DefaultApiFp(this.configuration).uploadVideo(authorization, title, description, video, cover, tags, options).then((request) => request(this.axios, this.basePath));
+    public uploadVideo(authorization: string, title?: string, description?: string, category?: string, video?: any, cover?: any, tags?: Array<string>, options?: any) {
+        return DefaultApiFp(this.configuration).uploadVideo(authorization, title, description, category, video, cover, tags, options).then((request) => request(this.axios, this.basePath));
     }
 }
