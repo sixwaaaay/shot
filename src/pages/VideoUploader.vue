@@ -64,10 +64,10 @@
 
 import {api} from "boot/axios";
 import {ref} from 'vue';
-import {useQuasar} from "quasar";
 import {useRouter} from "vue-router";
 import {Configuration, DefaultApi} from "src/api";
 import {useProfileStore} from "stores/profile";
+import {useQuasar} from "quasar";
 
 const title = ref('')
 const description = ref('')
@@ -84,7 +84,6 @@ const addTag = () => {
   tags.value.push(value)
   tagInput.value = ''
 }
-
 const removeTag = (index: number) => {
   tags.value.splice(index, 1)
 }
@@ -92,14 +91,16 @@ const router = useRouter()
 const profileStore = useProfileStore()
 const onSubmit = async (event: { preventDefault: () => void; target: HTMLFormElement | undefined; }) => {
   event.preventDefault()
-  const formData = new FormData(event.target)
-  console.log(formData)
+  if (video.value.size === undefined) {
+    return
+  }
   const service = new DefaultApi(new Configuration({basePath: api.defaults.baseURL}))
   try {
     let response = await service.uploadVideo(
       profileStore.getBearerToken,
       title.value,
       description.value,
+      category.value,
       video.value,
       coverImage.value,
     );
