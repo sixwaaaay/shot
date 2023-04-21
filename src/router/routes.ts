@@ -85,6 +85,10 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'following',
         component: () => import('pages/Followings.vue'),
+      },
+      {
+        path:'profile',
+        component: () => import('pages/OthersProfile.vue'),
       }
     ]
   },

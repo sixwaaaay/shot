@@ -22,7 +22,11 @@
       <div class="inline " style="flex-direction: column; display: flex; align-items: center">
 
 
-        <q-avatar size="60px" class="q-mb-lg">
+        <q-avatar size="60px" class="q-mb-lg" @click="$router.push({path: '/plain/profile', query: {
+          id: item.video.author?.id,
+          name: item.video.author?.name,
+          avatar: item.video.author?.avatar_url
+        }})">
           <img :src="item.video.author?.avatar_url" alt=""/>
         </q-avatar>
         <q-btn flat round color="white" icon="add" size="xl" v-if="!item.video.author?.is_follow ?? false"
