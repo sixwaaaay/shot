@@ -32,146 +32,165 @@
 
 
     <div>
-      <div v-for="friend in friends" :key="friend.id" @click="handleClick(friend.id, friend.name)" class="friend-item">
-        <img :src="friend.avatar" alt="avatar" class="avatar">
+      <div v-for="friend in friends" :key="friend.id" @click="handleClick(friend.id, friend.name,<string>friend.avatar_url)" class="friend-item">
+        <img :src="friend.avatar_url" alt="avatar" class="avatar">
         <div class="friend-info">
           <div class="friend-name">{{ friend.name }}</div>
-          <div class="friend-message">{{ friend.lastMessage }}</div>
+          <div class="friend-message">{{ friend.bio }}</div>
         </div>
-        <div class="message-time">{{ friend.lastMessageTime }}</div>
+        <div class="message-time">{{ friend.videos_posted }}</div>
       </div>
     </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import {useRouter} from "vue-router";
+import {GetFriendsRequest, User} from "src/api";
+import {useProfileStore} from "stores/profile";
+import {client} from "boot/defaultapi";
+import {useWrapStore} from "stores/wrap";
 
-const friends = ref([
-  {
-    id: 1,
-    name: '小明',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小明',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 2,
-    name: '小红',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小红',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 3,
-    name: '小刚',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小刚',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 4,
-    name: '小李',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小李',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 5,
-    name: '小王',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小王',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 6,
-    name: '小张',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小张',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 7,
-    name: '小赵',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小赵',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 8,
-    name: '小钱',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小钱',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 9,
-    name: '小孙',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小孙',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 10,
-    name: '小周',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小周',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 11,
-    name: '小吴',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小吴',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 12,
-    name: '小郑',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小郑',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 13,
-    name: '小王',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小王',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 14,
-    name: '小李',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小李',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 15,
-    name: '小张',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小张',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 16,
-    name: '小赵',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小赵',
-    lastMessageTime: '昨天'
-  },
-  {
-    id: 17,
-    name: '小孙',
-    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
-    lastMessage: '你好，我是小孙',
-    lastMessageTime: '昨天'
-  }])
+/*const friends = ref([*/
+/*  {*/
+/*    id: 1,*/
+/*    name: '小明',*/
+/*    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',*/
+/*    lastMessage: '你好，我是小明',*/
+/*    lastMessageTime: '昨天'*/
+/*  },*/
+/*  {*/
+/*    id: 2,*/
+/*    name: '小红',*/
+/*    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',*/
+/*    lastMessage: '你好，我是小红',*/
+/*    lastMessageTime: '昨天'*/
+/*  },*/
+/*  {*/
+/*    id: 3,*/
+/*    name: '小刚',*/
+/*    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',*/
+/*    lastMessage: '你好，我是小刚',*/
+/*    lastMessageTime: '昨天'*/
+/*  },*/
+/*  {*/
+/*    id: 4,*/
+/*    name: '小李',*/
+/*    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',*/
+/*    lastMessage: '你好，我是小李',*/
+/*    lastMessageTime: '昨天'*/
+/*  },*/
+/*  {*/
+/*    id: 5,*/
+/*    name: '小王',*/
+/*    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',*/
+/*    lastMessage: '你好，我是小王',*/
+/*    lastMessageTime: '昨天'*/
+/*  },*/
+/*  {*/
+/*    id: 6,*/
+/*    name: '小张',*/
+/*    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',*/
+/*    lastMessage: '你好，我是小张',*/
+/*    lastMessageTime: '昨天'*/
+/*  },*/
+/*  {*/
+/*    id: 7,*/
+/*    name: '小赵',*/
+/*    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',*/
+/*    lastMessage: '你好，我是小赵',*/
+/*    lastMessageTime: '昨天'*/
+/*  },*/
+/*  {*/
+/*    id: 8,*/
+/*    name: '小钱',*/
+/*    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',*/
+/*    lastMessage: '你好，我是小钱',*/
+/*    lastMessageTime: '昨天'*/
+/*  },*/
+/*  {*/
+/*    id: 9,*/
+/*    name: '小孙',*/
+/*    avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',*/
+/*    lastMessage: '你好，我是小孙',*/
+//     lastMessageTime: '昨天'
+//   },
+//   {
+//     id: 10,
+//     name: '小周',
+//     avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
+//     lastMessage: '你好，我是小周',
+//     lastMessageTime: '昨天'
+//   },
+//   {
+//     id: 11,
+//     name: '小吴',
+//     avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
+//     lastMessage: '你好，我是小吴',
+//     lastMessageTime: '昨天'
+//   },
+//   {
+//     id: 12,
+//     name: '小郑',
+//     avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
+//     lastMessage: '你好，我是小郑',
+//     lastMessageTime: '昨天'
+//   },
+//   {
+//     id: 13,
+//     name: '小王',
+//     avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
+//     lastMessage: '你好，我是小王',
+//     lastMessageTime: '昨天'
+//   },
+//   {
+//     id: 14,
+//     name: '小李',
+//     avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
+//     lastMessage: '你好，我是小李',
+//     lastMessageTime: '昨天'
+//   },
+//   {
+//     id: 15,
+//     name: '小张',
+//     avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
+//     lastMessage: '你好，我是小张',
+//     lastMessageTime: '昨天'
+//   },
+//   {
+//     id: 16,
+//     name: '小赵',
+//     avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
+//     lastMessage: '你好，我是小赵',
+//     lastMessageTime: '昨天'
+//   },
+//   {
+//     id: 17,
+//     name: '小孙',
+//     avatar: 'https://avatars.githubusercontent.com/u/1680273?v=4',
+//     lastMessage: '你好，我是小孙',
+//     lastMessageTime: '昨天'
+//   }])
+const friends = ref([] as User[])
 const router = useRouter()
-const handleClick = (friend: number, name: string) => {
-  router.push({path: '/plain/chat', query: {id: friend, name: name}})
+const handleClick = (friend: string, name: string, avatar: string) => {
+  router.push({path: '/plain/chat', query: {id: friend, name: name, avatar: avatar}})
 }
+const profileStore = useProfileStore();
+const wrap = new useWrapStore()
+onMounted(async () => {
+    const req: GetFriendsRequest = {
+        limit: 20,
+        token: '0'
+    }
+    const res = await client.getFriends(profileStore.getBearerToken, req)
+    console.log(res)
+    if (res.data.users !== undefined) {
+        wrap.wrapImagePrefix(res.data.users)
+        friends.value = res.data.users
+    }
+})
 </script>
 <style>
 .friend-item {
