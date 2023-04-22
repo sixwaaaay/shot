@@ -25,7 +25,14 @@
     <div >
       <div v-for="follower in followers" :key="follower.id" class="flex">
         <q-avatar size="60px" class="q-mr-lg">
-          <img :src="follower.avatar_url" alt=""/>
+          <img :src="follower.avatar_url" alt=""
+               @click="$router.push({path: '/plain/profile', query: {
+          id: follower.id,
+          name: follower.name,
+          avatar: follower.avatar_url
+        }})
+        "
+          />
         </q-avatar>
         <div class="details">
           <div class="name">{{ follower.name }}</div>
