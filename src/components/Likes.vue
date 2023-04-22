@@ -14,7 +14,7 @@
 <template>
   <div class="video-list">
     <div v-for="video in videos" :key="video.id" class="video-item">
-      <q-img :src="video.cover_url" alt="Video Thumbnail" tag="img"/>
+      <q-img :src="video.cover_url" alt="Video Thumbnail" tag="img" class="video-cover"/>
       <!--      <div class="video-info">
               <h3 class="video-title">{{ video.title }}</h3>
               <div class="video-metadata">
@@ -103,3 +103,8 @@ onMounted(async () => {
   videos.value = data.videos ?? []
 })
 </script>
+<style scoped>
+.video-cover {
+  height: 20vh;
+}
+</style>
