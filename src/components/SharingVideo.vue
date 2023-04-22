@@ -14,13 +14,13 @@
 <template>
   <div style="height: 100%;">
 
-    <video autoplay loop playsinline :src="item.video.video_url"
+    <video autoplay loop playsinline :src="item.video.video_url" ref="element" v-if="item.id -1 === item.active_id-1"
            style="width: 100%; height: 100%; object-fit: cover; position: relative; top: 0; left: 0; z-index: -1;">
     </video>
+    <img :src="item.video.cover_url" v-else style="width: 100%; height: 100%; object-fit: cover; position: relative; top: 0; left: 0; z-index: -1;"/>
 
     <div class="absolute-bottom-right  q-pa-md">
       <div class="inline " style="flex-direction: column; display: flex; align-items: center">
-
 
         <q-avatar size="60px" class="q-mb-lg" @click="$router.push({path: '/plain/profile', query: {
           id: item.video.author?.id,
@@ -51,20 +51,26 @@
 </template>
 
 <script setup lang="ts">
-import {Configuration, DefaultApi, FollowActionRequest, LikeVideoRequest, Video} from "src/api";
+import {FollowActionRequest, LikeVideoRequest, Video} from "src/api";
 import {useProfileStore} from "stores/profile";
-import {api} from "boot/axios";
 import {ref} from "vue";
 import Comments from "components/Comments.vue";
 import {useRouter} from "vue-router";
+import {client} from "boot/defaultapi";
 
 export interface VideoProps {
   video: Video
+  id: number
+  active_id: number
 }
 
 const item = defineProps<VideoProps>();
+
+const element = ref<HTMLVideoElement>()
+
+
 const profileStore = useProfileStore();
-const service = new DefaultApi(new Configuration({basePath: api.defaults.baseURL}))
+const service = client
 
 const router = useRouter()
 const like = async (video_id: string) => {
