@@ -17,7 +17,7 @@
     <video autoplay loop playsinline :src="item.video.video_url" ref="element" v-if="item.id -1 === item.active_id-1"
            style="width: 100%; height: 100%; object-fit: cover; position: relative; top: 0; left: 0; z-index: -1;">
     </video>
-    <img :src="item.video.cover_url" v-else style="width: 100%; height: 100%; object-fit: cover; position: relative; top: 0; left: 0; z-index: -1;"/>
+    <img :src="item.video.cover_url" v-else style="width: 100%; height: 100%; object-fit: cover; position: relative; top: 0; left: 0; z-index: -1;" alt=""/>
 
     <div class="absolute-bottom-right  q-pa-md">
       <div class="inline " style="flex-direction: column; display: flex; align-items: center">
@@ -42,6 +42,17 @@
         <q-btn round flat icon="share" color="white" size="xl"/>
 
 
+      </div>
+    </div>
+
+    <div class="absolute-bottom-left  q-pa-md">
+      <div class="inline " style="flex-direction: row; display: flex; align-items: center">
+
+        <div class="text-white">
+          <div class="text-subtitle2 text-weight-bold q-mb-sm">@{{item.video.author?.name}}</div>
+          <div class="text-h5 q-mb-sm">{{item.video.title}}</div>
+          <div class="text-subtitle2 q-mb-sm">{{item.video.description}}</div>
+        </div>
       </div>
     </div>
     <q-dialog v-model="dialog" position="bottom" class="text-white">
