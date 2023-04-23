@@ -41,7 +41,7 @@
 
 .vue-notification.warn {
   background: #f2b8b5;
-  border-left-color: #f48a06;
+  border-left-color: #f2b8b5;
 }
 
 .vue-notification.error {

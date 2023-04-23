@@ -58,6 +58,7 @@ import {Comment, CommentActionReq, CommentListReq} from "src/api";
 import {client} from "boot/defaultapi";
 import {useProfileStore} from "stores/profile";
 import {useWrapStore} from "stores/wrap";
+import {useNotification} from "@kyvg/vue3-notification";
 
 export interface CommentProps {
   video_id: string
@@ -109,8 +110,31 @@ const sendComment = async () => {
     action: 1,
     comment_text: message.value
   }
+  if (message.value === '') {
+    const notify  = useNotification()
+    notify.notify(
+      {
+        type: "warn",
+        title: "似乎没有输入内容哦！",
+      }
+    )
+    return
+  }
+  if (profileStore.getBearerToken === '') {
+    await router.push('/sign/in')
+    return
+  }
   let resp = await client.createComment(profileStore.getBearerToken, req);
   console.log(resp)
+  if (resp.status !== 200) {
+
+    notify.notify(
+      {
+        type: "error",
+        title: "啊哦，好像出现了一些意料之外的问题，我们正在努力修复中！",
+      }
+    )
+  }
   if (resp.data !== undefined && resp.data.comment !== undefined) {
     wrap.wrapCommentPrefix([resp.data.comment])
   }
