@@ -53,15 +53,16 @@
             <q-toolbar>
                 <q-input
                     v-model="message"
-                    filled
-                    placeholder="Type a message"
-                    class="q-px-md"
+
+                    placeholder=""
+                    class="full-width"
                     @keyup.enter="sendMessage"
                 />
                 <q-btn
                     flat
                     round
                     dense
+                    class="q-px-sm"
                     icon="send"
                     @click="sendMessage"
                 />
@@ -103,7 +104,7 @@ const sendMessage = async () => {
         console.log(response);
         messages.value.push({
             content: message.value,
-            create_time: new Date().toLocaleString(),
+            create_time: new Date().getTime().toString(),
             from_user_id: profileStore.user.id,
             to_user_id: id as string,
             id: new Date().getTime().toString(),

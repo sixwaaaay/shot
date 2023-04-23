@@ -19,12 +19,12 @@
     <div class="chat" style="margin-top: 45px">
 
       <div v-for="(comment, index) in comments" :key="index"
-           :class="{ 'message': true, 'received': true }">
+           class="message received">
         <img class="avatar" :src="comment.user?.avatar_url" alt="avatar">
         <div class="content">
-          <div class="header">
+          <div class="header flex">
             <span class="username">{{ comment.user?.name }}</span>
-            <span class="time">{{ comment.create_at }}</span>
+            <span class="time">{{ covertDate(comment.create_at) }}</span>
           </div>
           <div class="body">{{ comment.content }}</div>
         </div>
@@ -67,7 +67,11 @@ const props = defineProps<CommentProps>()
 const router = useRouter()
 console.log(props)
 const message = ref('')
-
+const covertDate = (date: string) => {
+  const timestamp = parseInt(date);
+  const d = new Date(timestamp*1000);
+  return d.toLocaleString();
+}
 const comments = ref([] as Comment[])
 const profileStore = useProfileStore()
 const wrap = new useWrapStore()
@@ -156,6 +160,7 @@ const sendComment = async () => {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  width: 100%;
 }
 
 .header {
@@ -163,6 +168,7 @@ const sendComment = async () => {
   justify-content: space-between;
   align-items: baseline;
   gap: 5px;
+  width: 100%;
 }
 
 .username {
@@ -171,6 +177,7 @@ const sendComment = async () => {
 
 .time {
   color: #888888;
+  text-align: right;
 }
 
 .body {

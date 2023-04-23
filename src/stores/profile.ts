@@ -14,12 +14,15 @@
 import {defineStore} from 'pinia';
 
 import {User} from "src/api";
+import {useWrapStore} from "stores/wrap";
 
 export const useProfileStore = defineStore('profile', {
   state: () => {
     const token = localStorage.getItem("profile/token") || '';
     const userStr = localStorage.getItem("profile/user") || '{}';
     const user = JSON.parse(userStr) as User;
+    const wrap = new useWrapStore()
+    wrap.wrapImagePrefix([user])
     return {
       user: user,
       token: token,
