@@ -48,7 +48,7 @@
                :rules="[val => val && val.length > 0 || '请输入用户名']"/>
 
       <q-input filled v-model="model.email" label="邮箱" lazy-rules
-               :rules="[val => val && val.length > 0 || '请输入邮箱']"/>
+               :rules="[val => val && val.length > 0 && reg.test(val) || '请输入正确的邮箱']"/>
 
       <q-input filled v-model="model.password" label="密码" lazy-rules
                :rules="[val => val && val.length > 0 || '请输入密码']"
@@ -72,13 +72,16 @@ import {Configuration, DefaultApi, RegisterRequest, User} from "src/api";
 import {api} from "boot/axios";
 import {useRouter} from "vue-router";
 import {useProfileStore} from "stores/profile";
-import {useQuasar} from "quasar";
+import {useNotification} from "@kyvg/vue3-notification";
 
 const model = reactive({
   email: '',
   password: '',
   username: ''
 })
+
+// reg to match email
+const reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
 const router = useRouter()
 const profileStore = useProfileStore()
 
@@ -107,13 +110,13 @@ const onSubmit = async () => {
     profileStore.setTokenAndUser(data.token!, user)
     await router.replace('/home');
   } catch (e) {
-    const $q = useQuasar()
-    $q.notify({
-      message: "注册失败",
-      color: 'negative',
-      position: 'top',
-      timeout: 1000
-    })
+    const notify = useNotification()
+    notify.notify(
+      {
+        type: "error",
+        title: "用户名和密码太长或者太短都不行哦",
+      }
+    )
   }
 }
 

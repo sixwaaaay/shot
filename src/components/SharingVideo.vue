@@ -39,7 +39,7 @@
 
         <q-btn round flat icon="comment" color="white" @click="open" size="xl"/>
 
-        <q-btn round flat icon="share" color="white" size="xl"/>
+<!--        <q-btn round flat icon="share" color="white" size="xl" @click="share"/>-->
 
 
       </div>
@@ -68,6 +68,7 @@ import {ref} from "vue";
 import Comments from "components/Comments.vue";
 import {useRouter} from "vue-router";
 import {client} from "boot/defaultapi";
+import {useNotification} from "@kyvg/vue3-notification";
 
 export interface VideoProps {
   video: Video

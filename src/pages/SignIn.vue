@@ -60,6 +60,7 @@ import {reactive} from 'vue';
 import {Configuration, DefaultApi, LoginRequest, User} from "src/api";
 import {api} from "boot/axios";
 import {useProfileStore} from "stores/profile";
+import {useNotification} from "@kyvg/vue3-notification";
 
 const router = useRouter()
 
@@ -94,13 +95,13 @@ const onSubmit = async () => {
     profileStore.setTokenAndUser(data.token!, user)
     await router.replace('/home');
   } catch (error) {
-    // const $q = useQuasar()
-    // $q.notify({
-    //   message: "登录失败, 请检查邮箱和密码",
-    //   color: 'negative',
-    //   position: 'top',
-    //   timeout: 1000
-    // })
+    const notify  = useNotification()
+    notify.notify(
+      {
+        type: "error",
+        title: "咦？密码错了吗？您可以再试试其他密码哦！",
+      }
+    )
   }
 }
 
