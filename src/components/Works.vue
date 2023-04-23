@@ -14,16 +14,11 @@
 <template>
   <div class="video-list">
     <div v-for="video in videos" :key="video.id" class="video-item">
-      <q-img :src="video.cover_url" alt="Video Thumbnail" tag="img"/>
+      <q-img :src="video.cover_url" alt="Video Thumbnail" tag="img" class="video-cover"/>
       <div class="video-info">
         <h3 class="video-title">{{ video.title }}</h3>
-        <div class="video-metadata">
-          <!--          <span class="upload-date">{{ new Date(parseInt(video.upload_time)).toDateString() }}</span>-->
-<!--          <span class="video-length">{{ video.duration }}</span>-->
-        </div>
       </div>
-      <div class="video-actions">
-<!--        like button-->
+      <div>
         <q-btn dense flat round icon="favorite" v-if="video.is_liked ?? false" color="red" @click="unlike(video.id ?? '0')"/>
         <q-btn dense flat round icon="favorite_border" v-else @click="like(video.id ?? '0')"/>
       </div>
@@ -97,3 +92,8 @@ onMounted(async () => {
   videos.value = data.videos ?? []
 })
 </script>
+<style>
+.video-cover {
+  height: 20vh;
+}
+</style>

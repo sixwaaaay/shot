@@ -13,28 +13,29 @@
 
 <template>
   <q-page >
+    <q-header class="bg-white text-grey-8 q-py-xs">
+
+      <q-toolbar>
+        <q-toolbar-title>
+          <q-input v-model="search" dense rounded outlined placeholder="搜索" @keyup.enter="searchVideos">
+            <template v-slot:append>
+              <q-icon name="search" class="cursor-pointer" @click="searchVideos" />
+            </template>
+          </q-input>
+        </q-toolbar-title>
+      </q-toolbar>
+
+    </q-header>
+
     <swiper :modules="modules" :slides-per-view="1" navigation :pagination="{ clickable: true }" direction="vertical"
-            :scrollbar="{ draggable: true }" style="height: calc(100vh - 100px )">
-
-      <q-header class="bg-white text-grey-8 q-py-xs">
-
-        <q-toolbar>
-          <q-toolbar-title>
-            <q-input v-model="search" dense rounded outlined placeholder="搜索" @keyup.enter="searchVideos">
-              <template v-slot:append>
-                <q-icon name="search" class="cursor-pointer" @click="searchVideos" />
-              </template>
-            </q-input>
-          </q-toolbar-title>
-        </q-toolbar>
-
-      </q-header>
-
-
+            :scrollbar="{ draggable: true }" style="height: calc(100vh - 100px )" :virtual="true"
+    @transition-end="onSlideChange"
+    >
+      <!--    @active-index-change="onSlideChange" -->
       <swiper-slide v-for="(video, index) in videos" :key="video.id" :virtualIndex="index"
                     style="height: 100%;" lazy>
 
-        <sharing-video :video="video" />
+        <sharing-video :video="video"  :id="index" :active_id="activeId" />
       </swiper-slide>
     </swiper>
   </q-page>
@@ -52,7 +53,6 @@ import 'swiper/css/autoplay';
 import 'swiper/css/keyboard';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import 'swiper/css/zoom';
 import {onMounted, ref} from 'vue';
 import {Configuration, DefaultApi, GetRecentVideosRequest, Video} from "src/api";
 import {api} from "boot/axios";
@@ -65,6 +65,13 @@ const videos = ref([] as Video[])
 const service = new DefaultApi(new Configuration({basePath: api.defaults.baseURL}))
 const profileStore = useProfileStore();
 let wrapStore = new useWrapStore();
+
+const activeId = ref(0)
+const onSlideChange = (slide: { activeIndex: number; realIndex: string; }) => {
+  console.log(slide)
+  console.log("current index: " + slide.activeIndex, "real index: " + slide.realIndex)
+  activeId.value = slide.activeIndex
+}
 onMounted(async () => {
   let req: GetRecentVideosRequest = {
     token: "0",

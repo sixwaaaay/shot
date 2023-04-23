@@ -16,8 +16,7 @@
     <q-footer elevated class="bg-white text-grey-8 q-py-xs">
       <q-tabs switch-indicator>
         <q-route-tab to="/home" replace label="首页" />
-        <q-route-tab to="/friends" replace label="朋友" />
-        <q-route-tab icon="video_call" to="/edit/video" replace />
+        <q-route-tab to="/edit/video" label="发布" replace />
         <q-route-tab to="/inbox" replace label="消息" />
         <q-route-tab to="/profile" replace label="我的" />
       </q-tabs>

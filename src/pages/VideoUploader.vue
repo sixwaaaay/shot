@@ -33,17 +33,17 @@
       <!--               :rules="[val => val.length > 0 || '请输入分类']"/>-->
       <q-select v-model="category" label="分类" outlined filled clearable lazy-rules name="category"
                 :options="['动画', '音乐', '舞蹈', '游戏', '科技', '生活', '鬼畜', '时尚', '娱乐', '电影', '电视剧', '纪录片', '影视杂谈', '影视剪辑' ]"/>
-      <q-input label="标签" outlined filled lazy-rules v-model="tagInput">
-        <q-btn type="button" color="primary" flat label="添加标签" class="q-ml-sm" @click="addTag"/>
-      </q-input>
+<!--      <q-input label="标签" outlined filled lazy-rules v-model="tagInput">-->
+<!--        <q-btn type="button" color="primary" flat label="添加标签" class="q-ml-sm" @click="addTag"/>-->
+<!--      </q-input>-->
 
-      <div>
-        <div v-for="(tag, index) in tags" :key="index" style="flex-direction: row">
-          {{ tag }}
-          <!--            <button type="button" @click="removeTag(index)">x</button>-->
-          <q-btn icon="close" color="negative" flat @click="removeTag(index)"/>
-        </div>
-      </div>
+<!--      <div>-->
+<!--        <div v-for="(tag, index) in tags" :key="index" style="flex-direction: row">-->
+<!--          {{ tag }}-->
+<!--          &lt;!&ndash;            <button type="button" @click="removeTag(index)">x</button>&ndash;&gt;-->
+<!--          <q-btn icon="close" color="negative" flat @click="removeTag(index)"/>-->
+<!--        </div>-->
+<!--      </div>-->
       <q-file v-model="coverImage" label="封面" outlined filled clearable accept="image/*" name="coverImage"/>
       <q-file v-model="video" label="视频" outlined filled clearable accept="video/*" name="video"/>
 
