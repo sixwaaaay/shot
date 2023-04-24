@@ -127,7 +127,7 @@ const sendComment = async () => {
   let resp = await client.createComment(profileStore.getBearerToken, req);
   console.log(resp)
   if (resp.status !== 200) {
-
+    const notify  = useNotification()
     notify.notify(
       {
         type: "error",

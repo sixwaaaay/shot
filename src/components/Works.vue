@@ -15,9 +15,9 @@
   <div class="video-list">
     <div v-for="video in videos" :key="video.id" class="video-item">
       <q-img :src="video.cover_url" alt="Video Thumbnail" tag="img" class="video-cover"/>
-      <div class="video-info">
-        <h3 class="video-title">{{ video.title }}</h3>
-      </div>
+<!--      <div class="video-info">-->
+<!--        <h3 class="video-title">{{ video.title }}</h3>-->
+<!--      </div>-->
       <div>
         <q-btn dense flat round icon="favorite" v-if="video.is_liked ?? false" color="red" @click="unlike(video.id ?? '0')"/>
         <q-btn dense flat round icon="favorite_border" v-else @click="like(video.id ?? '0')"/>

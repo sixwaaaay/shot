@@ -22,13 +22,13 @@
                 <span class="video-length">{{ video.description }}</span>
               </div>
             </div>-->
-      <div class="video-info">
-        <h3 class="video-title">{{ video.title }}</h3>
-        <div class="video-metadata">
-          <!--          <span class="upload-date">{{ new Date(parseInt(video.upload_time)).toDateString() }}</span>-->
-          <!--          <span class="video-length">{{ video.duration }}</span>-->
-        </div>
-      </div>
+<!--      <div class="video-info">-->
+<!--        <h3 class="video-title">{{ video.title }}</h3>-->
+<!--        <div class="video-metadata">-->
+<!--          &lt;!&ndash;          <span class="upload-date">{{ new Date(parseInt(video.upload_time)).toDateString() }}</span>&ndash;&gt;-->
+<!--          &lt;!&ndash;          <span class="video-length">{{ video.duration }}</span>&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="video-actions">
         <q-btn dense flat round icon="favorite" v-if="video.is_liked ?? false" color="red"
                @click="unlike(video.id ?? '0')"/>
