@@ -32,7 +32,7 @@
       <q-input v-model="bio" label="简介" outlined filled clearable lazy-rules name="bio"
                :rules="[val => val.length > 0 || '请输入简介']"/>
       <q-file v-model="avatar" label="头像" outlined filled clearable accept="image/*" name="avatar"/>
-      <q-file v-model="background" label="背景" outlined filled clearable accept="image/*" name="bg"/>
+<!--      <q-file v-model="background" label="背景" outlined filled clearable accept="image/*" name="bg"/>-->
 
       <div class="row justify-center">
         <q-btn type="submit" color="primary" class="q-px-lg" label="确认"/>

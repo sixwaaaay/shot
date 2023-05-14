@@ -32,13 +32,18 @@
         <q-btn flat round color="white" icon="add" size="xl" v-if="!item.video.author?.is_follow ?? false"
                @click="follow(<string>item.video.author?.id)"/>
         <q-btn flat round color="red" icon="done" size="xl" v-else @click="unfollow(<string>item.video.author?.id)"/>
+<!--
+          show count
+-->
+
+
         <q-btn flat round color="red" icon="favorite" size="xl" v-if="item.video.is_liked ?? false"
                @click="unlike(item.video.id)"/>
         <q-btn flat round color="white" icon="favorite_border" size="xl" v-else @click="like(item.video.id)"/>
-
+        <p class="text-white text-bold text-caption">{{item.video.like_count ?? 0}}</p>
 
         <q-btn round flat icon="comment" color="white" @click="open" size="xl"/>
-
+        <p class="text-white text-bold text-caption">{{item.video.comment_count ?? 0}}</p>
 <!--        <q-btn round flat icon="share" color="white" size="xl" @click="share"/>-->
 
 
@@ -98,6 +103,7 @@ const like = async (video_id: string) => {
   let response = await service.likeVideo(profileStore.getBearerToken, req);
   console.log(response)
   item.video.is_liked = true
+  item.video.like_count = (item.video.like_count ?? 0) + 1
 }
 const unlike = async (video_id: string) => {
   // if token is empty, then it route to login page
@@ -113,6 +119,7 @@ const unlike = async (video_id: string) => {
   let response = await service.likeVideo(profileStore.getBearerToken, req);
   console.log(response)
   item.video.is_liked = false
+  item.video.like_count = (item.video.like_count ?? 0) - 1
 }
 const dialog = ref(false)
 const open = () => {
