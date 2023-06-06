@@ -16,7 +16,10 @@
     <div class="text-h5 q-mb-md text-center q-py-xs absolute-top bg-white">
       <p>评论</p>
     </div>
-    <div class="chat" style="margin-top: 45px">
+    <div class="text-h5 q-mb-md text-center q-py-xs bg-white" style="visibility: hidden">
+      <p>评论</p>
+    </div>
+    <div class="chat" >
 
       <div v-for="(comment, index) in comments" :key="index"
            class="message received">
@@ -34,9 +37,10 @@
     <div class="flex fixed-bottom bg-white">
       <q-input
         v-model="message"
-        filled
-        placeholder="输入评论"
-        class="q-px-md"
+
+        placeholder="友善发言"
+        style="width: 80%"
+        class="q-px-sm"
         @keyup.enter="sendComment"
       />
       <q-space/>
@@ -54,7 +58,7 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
-import {Comment, CommentActionReq, CommentListReq} from "src/api";
+import {Comment, CommentActionReq, CommentListReq, Video} from "src/api";
 import {client} from "boot/defaultapi";
 import {useProfileStore} from "stores/profile";
 import {useWrapStore} from "stores/wrap";
@@ -62,6 +66,7 @@ import {useNotification} from "@kyvg/vue3-notification";
 
 export interface CommentProps {
   video_id: string
+  video: Video
 }
 
 const props = defineProps<CommentProps>()
@@ -118,6 +123,7 @@ const sendComment = async () => {
         title: "似乎没有输入内容哦！",
       }
     )
+    message.value = ''
     return
   }
   if (profileStore.getBearerToken === '') {
@@ -127,7 +133,34 @@ const sendComment = async () => {
   let resp = await client.createComment(profileStore.getBearerToken, req);
   console.log(resp)
   if (resp.status !== 200) {
+    const notify  = useNotification()
+    notify.notify(
+      {
+        type: "error",
+        title: "啊哦，好像出现了一些意料之外的问题，我们正在努力修复中！",
+      }
+    )
+  }
+  if (resp.data !== undefined && resp.data.comment !== undefined) {
+    wrap.wrapCommentPrefix([resp.data.comment])
+  }
+  if (resp.data !== undefined && resp.data.comment !== undefined) {
+    comments.value.push(resp.data.comment)
+  }
+  props.video.comment_count = (props.video.comment_count ?? 0) + 1
+  message.value = ''
+}
 
+const deleteComment = async (comment: Comment) => {
+  const req: CommentActionReq = {
+    video_id: props.video_id,
+    action: 2,
+    comment_id: comment.id
+  }
+  let resp = await client.deleteComment(profileStore.getBearerToken, req);
+  console.log(resp)
+  if (resp.status !== 200) {
+    const notify  = useNotification()
     notify.notify(
       {
         type: "error",
