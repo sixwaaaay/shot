@@ -1,5 +1,5 @@
 # 使用 Node 18 作为基础镜像
-FROM node:18.16.0-slim
+FROM node:20.18.0-slim
 
 # 设置工作目录
 WORKDIR /app
